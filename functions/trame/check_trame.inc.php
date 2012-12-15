@@ -1,5 +1,5 @@
 <?php
-function get_trame($tr){
+function check_trame($tr){
 	
 }
 ?>
