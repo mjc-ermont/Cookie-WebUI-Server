@@ -14,11 +14,12 @@ if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
 			echo 'db:' . $e->getMessage();
 		}
 		try {
-			$req = $db->prepare("INSERT INTO data(no_capt, no_val, val) VALUES (:no_capt, :no_val, :val)");
+			$req = $db->prepare("INSERT INTO data(no_capt, no_val, val, time) VALUES (:no_capt, :no_val, :val, :time)");
 			$req->execute(array(
-				"no_capt" => $no_capteur,
-				"no_val" => $no_valeur,
-				"val" => "$valeur"
+				"no_capt"	=> $no_capteur,
+				"no_val"	=> $no_valeur,
+				"val"		=> "$valeur",
+				"time"		=> (isset($_GET["ti"])) ? $_GET["ti"] : time()
 			));
 		} catch (Exception $e) {
 			echo 'db:' . $e->getMessage();
