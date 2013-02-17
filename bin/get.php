@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 if (isset($_GET["t"])) {
 	$time = $_GET["t"];
 	try {
