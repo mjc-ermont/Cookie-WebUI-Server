@@ -13,8 +13,8 @@ if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
 		} catch (Exception $e) {
 			echo 'db:' . $e->getMessage();
 		}
-		$req = $db->prepare("INSERT INTO data(no_capt, no_val, val) VALUES (:no_capt, :no_val, :val)");
 		try {
+			$req = $db->prepare("INSERT INTO data(no_capt, no_val, val) VALUES (:no_capt, :no_val, :val)");
 			$req->execute(array(
 				"no_capt" => $no_capteur,
 				"no_val" => $no_valeur,
