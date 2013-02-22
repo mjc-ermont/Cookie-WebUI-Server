@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("content-type: application/json");
 if (isset($_GET["t"])) {
@@ -12,6 +13,12 @@ if (isset($_GET["t"])) {
 	$req = $db->prepare("SELECT no_capt, no_val, val, time FROM data WHERE time > ?");
 	$req->execute(array($time));
 	$data = $req->fetchAll(PDO::FETCH_NUM);
-	echo json_encode($data);
+	if (count($data)) {
+		echo json_encode($data);
+	} else {
+		echo "n";
+	}
+} else {
+	echo "p";
 }
 ?>
