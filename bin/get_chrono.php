@@ -1,6 +1,9 @@
 <?php
-if (file_exists("../data/chrono.json")) {
-	file_get_contents("../data/chrono.json");
+
+require '../constants.inc.php';
+
+if (file_exists(PATH_CHRONO)) {
+	file_get_contents(PATH_CHRONO);
 } else {
 	echo "f";
 }
