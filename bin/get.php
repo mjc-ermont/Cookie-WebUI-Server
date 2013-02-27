@@ -3,33 +3,26 @@ ob_start();
 header("Access-Control-Allow-Origin: *");
 header("content-type: application/json");
 if (isset($_GET["t"])) {
-	//$first = TRUE;
-	$data = array();
+	$data_out = array();
 	$last = array();
 	$time = $_GET["t"];
-	try {
-		$db = new PDO("sqlite:../data/db.sqlite");
-	} catch (Exception $e) {
-		echo 'db:' . $e->getMessage();
-	}
-
-	$req = $db->prepare("SELECT no_capt, no_val, val, time FROM data WHERE time > ? ORDER BY time");
-	$req->execute(array($time));
-	//$data = $req->fetchAll(PDO::FETCH_NUM);
-	while($rep = $req->fetch()){
-		/*if ($first){
-			$first = FALSE;
-			$reftime = (int)$rep["time"];
-		}*/
-		if (!(isset($data[(int)$rep["no_capt"]][(int)$rep["no_val"]]))){
-			$data[(int)$rep["no_capt"]][(int)$rep["no_val"]] = array();
+	$fi = fopen('../data/data.json', 'r');
+	$data = json_decode(fread($fi, filesize("../data/data.json")), TRUE);
+	fclose($fi);
+	foreach ($data as $time_history => $history) {
+		if ($time_history < $time) {
+			continue;
+		} else {
+			foreach ($history as $no_capt => $value_a) {
+				foreach ($value_a as $no_val => $value) {
+						$data_out[$no_capt][$no_val][0][] = $value[0];
+						$data_out[$no_capt][$no_val][1][] = $value[1];
+				}
+			}
 		}
-		array_push($data[(int)$rep["no_capt"]][(int)$rep["no_val"]], array((int)$rep["val"], (int)$rep["time"]-$last[(int)$rep["no_capt"]][(int)$rep["no_val"]]));
-		$last[(int)$rep["no_capt"]][(int)$rep["no_val"]] = (int)$rep["time"];
 	}
-	//var_dump($data);
-	if (count($data)) {
-		echo json_encode($data);
+	if (count($data_out)) {
+		echo json_encode($data_out);
 	} else {
 		echo "n";
 	}
@@ -37,5 +30,4 @@ if (isset($_GET["t"])) {
 	echo "p";
 }
 ob_end_flush();
-
 ?>
