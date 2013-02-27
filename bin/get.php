@@ -15,8 +15,8 @@ if (isset($_GET["t"])) {
 		} else {
 			foreach ($history as $no_capt => $value_a) {
 				foreach ($value_a as $no_val => $value) {
-						$data_out[$no_capt][$no_val][0][] = $value[0];
-						$data_out[$no_capt][$no_val][1][] = $value[1];
+						$data_out[$no_capt][$no_val][0][] = (int)$value[0];
+						$data_out[$no_capt][$no_val][1][] = (int)$value[1];
 				}
 			}
 		}
