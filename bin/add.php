@@ -3,9 +3,9 @@
 require "../functions/cosntants.inc.php";
 
 if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
-	$no_capteur = $_GET["nc"];
-	$no_valeur = $_GET["nv"];
-	$valeur = $_GET["v"];
+	$no_capteur = (int)$_GET["nc"];
+	$no_valeur = (int)$_GET["nv"];
+	$valeur = (int)$_GET["v"];
 	$token = $_GET["t"];
 	$time = (isset($_GET["ti"])) ? $_GET["ti"] : time();
 	
@@ -21,8 +21,8 @@ if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
 		fclose($fi);
 
 //		if (isset($data["$no_capteur"]["$no_valeur"])) {
-			$data[$no_capteur][$no_valeur][0][] = $valeur; 
-			$data[$no_capteur][$no_valeur][1][] = $time; 
+			$data[$no_capteur][$no_valeur][] = array($time, $valeur); 
+			//$data[$no_capteur][$no_valeur][1][] = $valeur; 
 //		} else {
 //			$data["$no_capteur"]["$no_valeur"]/*[$time]*/ = array();//array("$no_capteur" => array("$no_valeur" => array($valeur, $time)));
 //		}
