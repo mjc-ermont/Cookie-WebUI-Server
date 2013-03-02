@@ -20,11 +20,12 @@ if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
 		flock($fi, LOCK_UN);
 		fclose($fi);
 
-		if (isset($data[$time])) {
-			array_merge($data[$time], array("$no_capteur" => array("$no_valeur" => array($valeur, $time))));
-		} else {
-			$data[$time] = array("$no_capteur" => array("$no_valeur" => array($valeur, $time)));
-		}
+//		if (isset($data["$no_capteur"]["$no_valeur"])) {
+			$data[$no_capteur][$no_valeur][0][] = $valeur; 
+			$data[$no_capteur][$no_valeur][1][] = $time; 
+//		} else {
+//			$data["$no_capteur"]["$no_valeur"]/*[$time]*/ = array();//array("$no_capteur" => array("$no_valeur" => array($valeur, $time)));
+//		}
 		
 		$fh = fopen('../data/data.json', 'a');
 		if (!($fh)){
