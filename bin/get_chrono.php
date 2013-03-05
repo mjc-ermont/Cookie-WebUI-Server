@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("content-type: application/json");
 
 require '../constants.inc.php';
 
