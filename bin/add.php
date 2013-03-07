@@ -5,7 +5,7 @@ require "../functions/cosntants.inc.php";
 if (isset($_GET["nc"], $_GET["t"], $_GET["nv"], $_GET["v"])) {
 	$no_capteur = (int)$_GET["nc"];
 	$no_valeur = (int)$_GET["nv"];
-	$valeur = (int)$_GET["v"];
+	$valeur = (float)$_GET["v"];
 	$token = $_GET["t"];
 	$time = (isset($_GET["ti"])) ? $_GET["ti"] : time();
 	
